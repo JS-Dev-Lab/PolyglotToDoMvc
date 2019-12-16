@@ -9,19 +9,11 @@
           autofocus
           v-model="newTodo"
           @keyup.enter="addTodo"
-        >
+        />
       </div>
     </header>
-    <section
-      class="main"
-      v-show="state.todos.length"
-    >
-      <input
-        id="toggle-all"
-        class="toggle-all"
-        type="checkbox"
-        v-model="allDone"
-      >
+    <section class="main" v-show="state.todos.length">
+      <input id="toggle-all" class="toggle-all" type="checkbox" v-model="allDone" />
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
         <li
@@ -36,12 +28,9 @@
               type="checkbox"
               :checked="todo.completed"
               @input="state.commands.updateToDo(todo, $event.target.checked)"
-            >
+            />
             <label @dblclick="editTodo(todo)">{{todo.title}}</label>
-            <button
-              class="destroy"
-              @click="removeTodo(todo)"
-            ></button>
+            <button class="destroy" @click="removeTodo(todo)"></button>
           </div>
           <input
             class="edit"
@@ -51,24 +40,18 @@
             @blur="doneEdit(todo)"
             @keyup.enter="doneEdit(todo)"
             @keyup.esc="cancelEdit(todo)"
-          >
+          />
         </li>
       </ul>
     </section>
 
-    <footer
-      class="footer"
-      v-show="state.todos.length"
-    >
+    <footer class="footer" v-show="state.todos.length">
       <span class="todo-count">
         <strong v-text="remaining"></strong> item(s) left
       </span>
 
       <ul class="filters">
-        <li
-          v-for="type in ['all','active','completed']"
-          :key="type"
-        >
+        <li v-for="type in ['all','active','completed']" :key="type">
           <a
             class="filter"
             @click="visibility=type"
@@ -80,9 +63,7 @@
         class="clear-completed"
         @click="removeCompleted"
         v-show="state.todos.length > remaining"
-      >
-        Clear completed
-      </button>
+      >Clear completed</button>
     </footer>
   </section>
 </template>
@@ -153,9 +134,7 @@ export default {
   },
   watch: {
     allDone(newValue) {
-      this.state.todos.forEach(todo => {
-        this.state.commands.updateToDo(todo, newValue);
-      });
+      this.state.commands.updateToDos(newValue);
     }
   },
   directives: {

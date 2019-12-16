@@ -12,7 +12,7 @@ function render(state) {
       </form>
     </header> 
     <section class="main">
-      <input id="toggle-all" type="checkbox" class="toggle-all"> 
+      <input id="toggle-all" ${notCompleted.length ===0 ? "checked" : ""} type="checkbox" class="toggle-all" onclick="state.commands.updateToDos(this.checked)"> 
       <label  for="toggle-all">Mark all as complete</label> 
       <ul class="todo-list">
         ${list.map(l => `
@@ -20,7 +20,7 @@ function render(state) {
             <div class="view">
               <input type="checkbox" class="toggle" ${l.completed ? "checked" : ""} onChange="state.commands.updateToDo({id:${l.id}},this.checked)"> 
               <label>${l.title}</label> 
-              <button class="destroy"></button>
+              <button class="destroy" onClick="state.commands.removeTodo({id:${l.id}})"></button>
             </div>
             <input type="text" class="edit">
         </li>
@@ -29,12 +29,15 @@ function render(state) {
     </section>
     ${state.todos.length === 0 ? "" :
       `<footer class="footer">
-        <span class="todo-count"><strong>${notCompleted.length}</strong> item(s) left</span> 
-        <ul class="filters">
-          <li><a class="filter selected">all</a></li>
-          <li><a class="filter">active</a></li>
-          <li><a class="filter">completed</a></li>
-        </ul>
+        <span class="todo-count"><strong>${notCompleted.length}</strong> item(s) left</span>
+        <form>
+          <ul class="filters">
+            ${['all','active','completed'].map(type => 
+              `<li>
+                <a class="filter ${type === state.selectedFilter? 'selected': ''}">${type}</a>
+              </li>`).join("")}
+          </ul>
+        <form>
         ${completed.length === 0 ? "" : `
         <button class="clear-completed" onClick="state.commands.removeCompleted()">
           Clear completed
