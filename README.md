@@ -1,1 +1,1 @@
-PolyglotToDoMvc
+MultiFrameworkApp
