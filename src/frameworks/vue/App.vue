@@ -54,8 +54,8 @@
         <li v-for="type in ['all','active','completed']" :key="type">
           <a
             class="filter"
-            @click="visibility=type"
-            :class="{selected: visibility == type}"
+            @click="state.commands.setFilter(type)"
+            :class="{selected: state.filter === type}"
           >{{type}}</a>
         </li>
       </ul>
@@ -91,7 +91,6 @@ export default {
   data() {
     return {
       newTodo: "",
-      visibility: "all",
       editedTodo: null,
       editName: "",
       allDone: false
@@ -126,7 +125,7 @@ export default {
   },
   computed: {
     filteredTodos() {
-      return filters[this.visibility](this.state.todos);
+      return filters[this.state.filter](this.state.todos);
     },
     remaining() {
       return filters.active(this.state.todos).length;

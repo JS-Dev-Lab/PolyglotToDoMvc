@@ -1,14 +1,13 @@
 function render(state) {
   const completed = state.todos.filter(t => t.completed);
   const notCompleted = state.todos.filter(t => !t.completed);
-  const list = state.todos;
+  const list = (state.filter === "all") ?  state.todos : (state.filter === "active") ? notCompleted : completed;
   return `
-  <pre>${JSON.stringify(state)}</pre>
   <section class="todoapp">
     <header class="header" >
       <form onSubmit="state.commands.addTodo(this.todo.value)">
         <h1>todos</h1> 
-        <input placeholder="What needs to be done?" name="todo" class="new-todo">
+        <input autofocus placeholder="What needs to be done?" name="todo" class="new-todo">
       </form>
     </header> 
     <section class="main">
@@ -34,7 +33,7 @@ function render(state) {
           <ul class="filters">
             ${['all','active','completed'].map(type => 
               `<li>
-                <a class="filter ${type === state.selectedFilter? 'selected': ''}">${type}</a>
+                <a class="filter ${type === state.filter? 'selected': ''}" onclick="state.commands.setFilter('${type}')">${type}</a>
               </li>`).join("")}
           </ul>
         <form>

@@ -3,7 +3,11 @@ function run(uiEngine) {
 
   let view = uiEngine.initialRender({
     todos: [],
+    filter: "all",
     commands: {
+      setFilter(value){
+        view = view.update(s => s.filter = value);
+      },
       addTodo(title) {
         if (title === "") {
           return;
