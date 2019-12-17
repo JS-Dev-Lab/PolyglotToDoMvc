@@ -5,7 +5,7 @@ function render(state) {
   return `
   <section class="todoapp">
     <header class="header" >
-      <form onSubmit="state.commands.addTodo(this.todo.value)">
+      <form onsubmit="state.commands.addTodo(this.todo.value)">
         <h1>todos</h1> 
         <input autofocus placeholder="What needs to be done?" name="todo" class="new-todo">
       </form>
@@ -15,13 +15,15 @@ function render(state) {
       <label  for="toggle-all">Mark all as complete</label> 
       <ul class="todo-list">
         ${list.map(l => `
-          <li class="todo${l.completed ? ' completed' : ''}">
+          <li class="todo${l.completed ? ' completed' : ''}${l.editing ? ' editing' : ''}">
             <div class="view">
-              <input type="checkbox" class="toggle" ${l.completed ? "checked" : ""} onChange="state.commands.updateToDo({id:${l.id}},this.checked)"> 
-              <label>${l.title}</label> 
-              <button class="destroy" onClick="state.commands.removeTodo({id:${l.id}})"></button>
+              <input type="checkbox" class="toggle" ${l.completed ? "checked" : ""} onchange="state.commands.updateToDo({id:${l.id}},this.checked)"> 
+              <label ondblclick="state.commands.edit({id:${l.id}})">${l.title}</label> 
+              <button class="destroy" onclick="state.commands.removeTodo({id:${l.id}})"></button>
             </div>
-            <input type="text" class="edit">
+            <form onsubmit="state.commands.updateToDoTitle({id:${l.id}}, this.title.value)">
+              <input name="title" type="text" class="edit" onblur="state.commands.cancelEdit({id:${l.id}})" value="${l.title}">
+            </form >
         </li>
         `).join("")}
       </ul>

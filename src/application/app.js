@@ -5,8 +5,8 @@ function run(uiEngine) {
     todos: [],
     filter: "all",
     commands: {
-      setFilter(value){
-        view = view.update(s => s.filter = value);
+      setFilter(value) {
+        view = view.update(s => (s.filter = value));
       },
       addTodo(title) {
         if (title === "") {
@@ -15,8 +15,22 @@ function run(uiEngine) {
         view = view.update(s => s.todos.push({
           id: id++,
           completed: false,
+          editing: false,
           title
-        }));
+        })
+        );
+      },
+      edit(todo) {
+        view = view.update(s => {
+          const realTodo = s.todos.find(t => t.id === todo.id);
+          realTodo.editing = true;
+        });
+      },
+      cancelEdit(todo) {
+        view = view.update(s => {
+          const realTodo = s.todos.find(t => t.id === todo.id);
+          realTodo.editing = false;
+        });
       },
       updateToDo(todo, completed) {
         view = view.update(s => {
@@ -31,10 +45,11 @@ function run(uiEngine) {
           });
         });
       },
-      updateToDoName(todo, name) {
+      updateToDoTitle(todo, title) {
         view = view.update(s => {
           const realTodo = s.todos.find(t => t.id === todo.id);
-          realTodo.title = name;
+          realTodo.title = title;
+          realTodo.editing = false;
         });
       },
       removeTodo(todo) {

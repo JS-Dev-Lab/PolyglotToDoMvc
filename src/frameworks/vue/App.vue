@@ -110,7 +110,7 @@ export default {
       if (!this.editedTodo) {
         return;
       }
-      this.state.commands.updateToDoName(todo, this.editName);
+      this.state.commands.updateToDoTitle(todo, this.editName);
       this.editedTodo = null;
     },
     cancelEdit(todo) {
@@ -148,22 +148,4 @@ export default {
 
 <style src="../../../node_modules/todomvc-common/base.css"/>
 <style src="../../../node_modules//todomvc-app-css/index.css"/>
-
-<style scoped>
-.todoapp h1 {
-  position: absolute;
-  top: -155px;
-  width: 100%;
-  font-size: 100px;
-  font-weight: 100;
-  text-align: center;
-  color: rgba(175, 47, 47, 0.15);
-  -webkit-text-rendering: optimizeLegibility;
-  -moz-text-rendering: optimizeLegibility;
-  text-rendering: optimizeLegibility;
-}
-
-.filters .filter {
-  text-transform: capitalize;
-}
-</style>
+<style src="../../style/style.css"/>
