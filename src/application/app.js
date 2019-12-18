@@ -12,12 +12,13 @@ function run(uiEngine) {
         if (title === "") {
           return;
         }
-        view = view.update(s => s.todos.push({
-          id: id++,
-          completed: false,
-          editing: false,
-          title
-        })
+        view = view.update(s =>
+          s.todos.push({
+            id: id++,
+            completed: false,
+            editing: false,
+            title
+          })
         );
       },
       edit(todo) {
