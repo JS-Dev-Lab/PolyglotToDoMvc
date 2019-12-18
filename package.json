@@ -5,8 +5,8 @@
   "main": "dist/main.js",
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "webpack --mode=production",
-    "serve": "webpack-dev-server --open --mode=development --default=vue"
+    "build": "webpack --mode=production --default=pm ",
+    "serve": "webpack-dev-server --open --mode=development --default=pm"
   },
   "repository": "git+https://github.com/David-Desmaisons/wtuif.git",
   "keywords": [
