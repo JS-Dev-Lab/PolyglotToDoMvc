@@ -1,31 +1,27 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from "react";
 
-class UIEngine {
-  constructor(App, root) {
-    this._App = App;
-    this._root = root;
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...props.state };
   }
 
-  initialRender(state) {
-    return new View(this._App, this._root, state);
-  }
-}
-
-class View {
-  constructor(App, root, state) {
-    this._App = App;
-    this._root = root;
-    this._state = Object.freeze({ ...state });
-    ReactDOM.render(<App state={this._state} />, root);
-    window.view = this;
-  }
-
-  update(updater) {
-    const newState = { ...this._state };
-    updater(newState);
-    return new View(this._App, this._root, newState);
+  render() {
+    const { state } = this;
+    const { commands: { add, setName } } = state;
+    const onChange = event => {
+      setName(event.target.value);
+    };
+    return (
+      <div className="App">
+        <h1>Hello {state.name}</h1>
+        <input value={state.name} onChange={onChange}></input>
+        <p>{state.name.length}</p>
+        <p>{state.count}</p>
+        <button onClick={add}>My button</button>
+      </div>
+    );
   }
 }
 
-export { UIEngine };
+export default App;
