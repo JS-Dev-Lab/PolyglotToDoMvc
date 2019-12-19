@@ -1,7 +1,7 @@
 async function getEngine(type) {
   try {
     const { engine } = await import(
-      /* webpackChunkName: "[request]" */ 
+      /* webpackChunkName: "[request]" */
       `./frameworks/${type}/bootstrap`
     );
     return engine;

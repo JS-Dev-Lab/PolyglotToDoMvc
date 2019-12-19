@@ -1,8 +1,14 @@
-function run(uiEngine) {
-  let id = 1;
+function run(uiEngine, storage) {
+  let { id, todos } = storage.load();
+
+  const updateSave = (view, updater) =>
+    view.update(s => {
+      updater(s);
+      storage.save({ id, todos: s.todos });
+    });
 
   let view = uiEngine.initialRender({
-    todos: [],
+    todos,
     filter: "all",
     commands: {
       setFilter(value) {
@@ -12,7 +18,7 @@ function run(uiEngine) {
         if (title === "") {
           return;
         }
-        view = view.update(s =>
+        view = updateSave(view, s =>
           s.todos.push({
             id: id++,
             completed: false,
@@ -22,44 +28,44 @@ function run(uiEngine) {
         );
       },
       edit(todo) {
-        view = view.update(s => {
+        view = updateSave(view, s => {
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.editing = true;
         });
       },
       cancelEdit(todo) {
-        view = view.update(s => {
+        view = updateSave(view, s => {
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.editing = false;
         });
       },
       updateToDo(todo, completed) {
-        view = view.update(s => {
+        view = updateSave(view, s => {
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.completed = completed;
         });
       },
       updateToDos(completed) {
-        view = view.update(s => {
+        view = updateSave(view, s => {
           s.todos.forEach(todo => {
             todo.completed = completed;
           });
         });
       },
       updateToDoTitle(todo, title) {
-        view = view.update(s => {
+        view = updateSave(view, s => {
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.title = title;
           realTodo.editing = false;
         });
       },
       removeTodo(todo) {
-        view = view.update(s => {
+        view = updateSave(view, s => {
           s.todos = s.todos.filter(t => t.id !== todo.id);
         });
       },
       removeCompleted() {
-        view = view.update(s => {
+        view = updateSave(view, s => {
           s.todos = s.todos.filter(t => !t.completed);
         });
       }
