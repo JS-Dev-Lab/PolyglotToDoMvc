@@ -41,7 +41,7 @@ function template({ todos, commands, filter }) {
               <a class="filter ${type === filter ? 'selected' : ''}" href="#/${type}">${type}</a>
             </li>`)}
         </ul>
-        ${completed.length === 0 ? "" : html`
+        ${completed.length === 0 ? nothing : html`
         <button class="clear-completed" @click=${() => commands.removeCompleted()}>
           Clear completed
         </button>`}
