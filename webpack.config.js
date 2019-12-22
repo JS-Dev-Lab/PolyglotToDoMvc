@@ -44,7 +44,7 @@ module.exports = (_, argv) => {
       new webpack.DefinePlugin({
         "process.env.Framework": JSON.stringify(app)
       }),
-      new webpack.SourceMapDevToolPlugin({}),
+      ...(argv.mode === "development" ? [new webpack.SourceMapDevToolPlugin({})] : []),
       new HtmlWebpackPlugin({
         filename: "index.html",
         template: "./public/index.html"
