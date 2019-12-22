@@ -79,6 +79,7 @@
     "not ie <= 8"
   ],
   "dependencies": {
+    "lit-html": "^1.1.2",
     "todomvc-app-css": "^2.3.0",
     "todomvc-common": "^1.0.5"
   }
