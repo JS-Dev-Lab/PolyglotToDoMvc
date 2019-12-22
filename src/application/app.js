@@ -1,4 +1,4 @@
-function run(uiEngine, storage) {
+function run(uiEngine, storage, onNavigate) {
   let { id, todos } = storage.load();
 
   const updateSave = (view, updater) =>
@@ -11,9 +11,6 @@ function run(uiEngine, storage) {
     todos,
     filter: "all",
     commands: {
-      setFilter(value) {
-        view = view.update(s => (s.filter = value));
-      },
       addTodo(title) {
         if (title === "") {
           return;
@@ -71,6 +68,22 @@ function run(uiEngine, storage) {
       }
     }
   });
+
+  function getFilter(path) {
+    switch (path) {
+      case "#/active":
+        return "active";
+
+      case "#/completed":
+        return "completed";
+    }
+    return "all";
+  }
+
+  onNavigate((path) => {
+    const filter = getFilter(path);
+    view = view.update(s => (s.filter = filter));
+  })
 }
 
 export { run };

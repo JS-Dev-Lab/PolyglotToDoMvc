@@ -35,7 +35,7 @@ function render(state) {
           <ul class="filters">
             ${['all','active','completed'].map(type => 
               `<li>
-                <a class="filter ${type === state.filter? 'selected': ''}" onclick="state.commands.setFilter('${type}')">${type}</a>
+                <a class="filter ${type === state.filter? 'selected': ''}" href="#/${type}">${type}</a>
               </li>`).join("")}
           </ul>
         <form>

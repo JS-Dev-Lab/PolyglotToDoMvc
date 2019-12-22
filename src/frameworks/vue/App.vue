@@ -54,7 +54,7 @@
         <li v-for="type in ['all','active','completed']" :key="type">
           <a
             class="filter"
-            @click="state.commands.setFilter(type)"
+            :href="`#/${type}`"
             :class="{selected: state.filter === type}"
           >{{type}}</a>
         </li>
