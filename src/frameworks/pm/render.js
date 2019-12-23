@@ -1,7 +1,12 @@
 function render(state) {
   const completed = state.todos.filter(t => t.completed);
   const notCompleted = state.todos.filter(t => !t.completed);
-  const list = (state.filter === "all") ?  state.todos : (state.filter === "active") ? notCompleted : completed;
+  const list =
+    state.filter === "all"
+      ? state.todos
+      : state.filter === "active"
+      ? notCompleted
+      : completed;
   return `
   <section class="todoapp">
     <header class="header" >

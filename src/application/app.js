@@ -26,7 +26,7 @@ function run(uiEngine, storage, onNavigate) {
       },
       edit(todo) {
         view = updateSave(view, s => {
-          s.todos.forEach(t => t.editing = false);
+          s.todos.forEach(t => (t.editing = false));
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.editing = true;
         });
@@ -81,10 +81,10 @@ function run(uiEngine, storage, onNavigate) {
     return "all";
   }
 
-  onNavigate((path) => {
+  onNavigate(path => {
     const filter = getFilter(path);
     view = view.update(s => (s.filter = filter));
-  })
+  });
 }
 
 export { run };
