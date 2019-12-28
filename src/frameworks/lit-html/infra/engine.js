@@ -27,7 +27,6 @@ class UiEngine {
 
 function handleRemoteDev(remoteDevHandler, state, viewName, updateState) {
   const sendableState = getSendableState(state);
-  updater = updateState;
   if (remoteDevHandler) {
     remoteDevHandler.updateState = updateState;
     remoteDevHandler.remoteDev.send("action", sendableState);
@@ -36,7 +35,7 @@ function handleRemoteDev(remoteDevHandler, state, viewName, updateState) {
 
   const remoteDev = connectViaExtension();
   remoteDev.init(sendableState, { name: `${viewName}` });
-  const remoteDevHandler = {
+  remoteDevHandler = {
     remoteDev,
     updateState
   };
