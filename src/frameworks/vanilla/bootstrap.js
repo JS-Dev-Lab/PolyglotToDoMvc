@@ -1,4 +1,4 @@
-import { UiEngine } from "./infra/engine";
+import { viewCreatorFactory } from "mvi.vanilla";
 import { render } from "./render";
 
 import "todomvc-common/base.css";
@@ -6,6 +6,6 @@ import "todomvc-app-css/index.css";
 import "../../style/style.css";
 
 const element = document.getElementById("app");
-const engine = new UiEngine(element, render);
+const createView = viewCreatorFactory(element, render);
 
-export { engine };
+export { createView };

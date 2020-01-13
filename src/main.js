@@ -4,8 +4,8 @@ import { storage } from "./application/storage";
 import { onNavigate } from "./application/navigation";
 
 async function main(type) {
-  const engine = await getEngine(type);
-  run(engine, storage, onNavigate);
+  const createView = await getEngine(type);
+  run(createView, storage, onNavigate);
 }
 
 window.console.log(process.env.Framework);

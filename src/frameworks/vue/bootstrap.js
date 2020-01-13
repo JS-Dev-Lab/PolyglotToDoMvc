@@ -1,6 +1,5 @@
-import { UiEngine } from "./infra/engine";
+import { viewCreatorFactory } from "mvi.vue";
 import App from "./App.vue";
+const createView = viewCreatorFactory("#app", App);
 
-const engine = new UiEngine("#app", App);
-
-export { engine };
+export { createView };

@@ -1,4 +1,4 @@
-function run(uiEngine, storage, onNavigate) {
+function run(createView, storage, onNavigate) {
   let { id, todos } = storage.load();
 
   const updateSave = (view, updater) =>
@@ -7,15 +7,17 @@ function run(uiEngine, storage, onNavigate) {
       storage.save({ id, todos: s.todos });
     });
 
-  let view = uiEngine.initialRender({
-    todos,
-    filter: "all",
+  const view = createView({
+    state: {
+      todos,
+      filter: "all",
+    },
     commands: {
       addTodo(title) {
         if (title === "") {
           return;
         }
-        view = updateSave(view, s =>
+        updateSave(view, s =>
           s.todos.push({
             id: id++,
             completed: false,
@@ -25,45 +27,45 @@ function run(uiEngine, storage, onNavigate) {
         );
       },
       edit(todo) {
-        view = updateSave(view, s => {
+        updateSave(view, s => {
           s.todos.forEach(t => (t.editing = false));
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.editing = true;
         });
       },
       cancelEdit(todo) {
-        view = updateSave(view, s => {
+        updateSave(view, s => {
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.editing = false;
         });
       },
       updateToDo(todo, completed) {
-        view = updateSave(view, s => {
+        updateSave(view, s => {
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.completed = completed;
         });
       },
       updateToDos(completed) {
-        view = updateSave(view, s => {
+        updateSave(view, s => {
           s.todos.forEach(todo => {
             todo.completed = completed;
           });
         });
       },
       updateToDoTitle(todo, title) {
-        view = updateSave(view, s => {
+        updateSave(view, s => {
           const realTodo = s.todos.find(t => t.id === todo.id);
           realTodo.title = title;
           realTodo.editing = false;
         });
       },
       removeTodo(todo) {
-        view = updateSave(view, s => {
+        updateSave(view, s => {
           s.todos = s.todos.filter(t => t.id !== todo.id);
         });
       },
       removeCompleted() {
-        view = updateSave(view, s => {
+        updateSave(view, s => {
           s.todos = s.todos.filter(t => !t.completed);
         });
       }
@@ -83,7 +85,7 @@ function run(uiEngine, storage, onNavigate) {
 
   onNavigate(path => {
     const filter = getFilter(path);
-    view = view.update(s => (s.filter = filter));
+    view.update(s => (s.filter = filter));
   });
 }
 

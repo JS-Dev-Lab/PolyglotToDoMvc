@@ -8,7 +8,8 @@ class App extends Component {
 
   render() {
     const { state } = this;
-    const { todos, commands, filter, editValue } = state;
+    const { todos, filter, editValue } = state;
+    const { commands } = this.props;
     const completed = todos.filter(t => t.completed);
     const notCompleted = todos.filter(t => !t.completed);
     const list =
@@ -47,7 +48,7 @@ class App extends Component {
                 key={l.id}
                 className={`todo ${l.completed ? " completed" : ""} ${
                   l.editing ? " editing" : ""
-                }`}
+                  }`}
               >
                 <div className="view">
                   <input
