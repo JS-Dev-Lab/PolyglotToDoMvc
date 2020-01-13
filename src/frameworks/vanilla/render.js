@@ -1,4 +1,4 @@
-function render({state}) {
+function render({ state }) {
   const completed = state.todos.filter(t => t.completed);
   const notCompleted = state.todos.filter(t => !t.completed);
   const list =
@@ -10,7 +10,7 @@ function render({state}) {
   return `
   <section class="todoapp">
     <header class="header" >
-      <form onsubmit="commands.addTodo(this.todo.value)">
+      <form onsubmit="commands.addTodo(this.todo.value); return false;">
         <h1>todos</h1> 
         <input autofocus placeholder="What needs to be done?" name="todo" class="new-todo">
       </form>
