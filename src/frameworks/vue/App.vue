@@ -12,10 +12,7 @@
         />
       </div>
     </header>
-    <section
-      class="main"
-      v-show="state.todos.length"
-    >
+    <section class="main" v-show="state.todos.length">
       <input
         id="toggle-all"
         class="toggle-all"
@@ -38,10 +35,7 @@
               @input="commands.updateToDo(todo, $event.target.checked)"
             />
             <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
-            <button
-              class="destroy"
-              @click="removeTodo(todo)"
-            ></button>
+            <button class="destroy" @click="removeTodo(todo)"></button>
           </div>
           <input
             class="edit"
@@ -56,24 +50,19 @@
       </ul>
     </section>
 
-    <footer
-      class="footer"
-      v-show="state.todos.length"
-    >
+    <footer class="footer" v-show="state.todos.length">
       <span class="todo-count">
         <strong v-text="remaining"></strong> item(s) left
       </span>
 
       <ul class="filters">
-        <li
-          v-for="type in ['all', 'active', 'completed']"
-          :key="type"
-        >
+        <li v-for="type in ['all', 'active', 'completed']" :key="type">
           <a
             class="filter"
             :href="`#/${type}`"
             :class="{ selected: state.filter === type }"
-          >{{ type }}</a>
+            >{{ type }}</a
+          >
         </li>
       </ul>
       <button
