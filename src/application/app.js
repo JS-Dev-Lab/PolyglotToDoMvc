@@ -70,7 +70,7 @@ function run(createView, storage, onNavigate) {
     storage.save({ id, todos: s.todos });
   });
 
-  function getFilter(path) {
+  const getFilter = path => {
     switch (path) {
       case "#/active":
         return "active";
@@ -79,7 +79,7 @@ function run(createView, storage, onNavigate) {
         return "completed";
     }
     return "all";
-  }
+  };
 
   onNavigate(path => {
     const filter = getFilter(path);
