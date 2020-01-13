@@ -1,4 +1,4 @@
-function render(state) {
+function render({state}) {
   const completed = state.todos.filter(t => t.completed);
   const notCompleted = state.todos.filter(t => !t.completed);
   const list =
@@ -10,24 +10,24 @@ function render(state) {
   return `
   <section class="todoapp">
     <header class="header" >
-      <form onsubmit="state.commands.addTodo(this.todo.value)">
+      <form onsubmit="commands.addTodo(this.todo.value)">
         <h1>todos</h1> 
         <input autofocus placeholder="What needs to be done?" name="todo" class="new-todo">
       </form>
     </header> 
     <section class="main">
-      <input id="toggle-all" ${notCompleted.length ===0 ? "checked" : ""} type="checkbox" class="toggle-all" onclick="state.commands.updateToDos(this.checked)"> 
+      <input id="toggle-all" ${notCompleted.length ===0 ? "checked" : ""} type="checkbox" class="toggle-all" onclick="commands.updateToDos(this.checked)"> 
       <label  for="toggle-all">Mark all as complete</label> 
       <ul class="todo-list">
         ${list.map(l => `
           <li class="todo${l.completed ? ' completed' : ''}${l.editing ? ' editing' : ''}">
             <div class="view">
-              <input type="checkbox" class="toggle" ${l.completed ? "checked" : ""} onchange="state.commands.updateToDo({id:${l.id}},this.checked)"> 
-              <label ondblclick="state.commands.edit({id:${l.id}})">${l.title}</label> 
-              <button class="destroy" onclick="state.commands.removeTodo({id:${l.id}})"></button>
+              <input type="checkbox" class="toggle" ${l.completed ? "checked" : ""} onchange="commands.updateToDo({id:${l.id}},this.checked)"> 
+              <label ondblclick="commands.edit({id:${l.id}})">${l.title}</label> 
+              <button class="destroy" onclick="commands.removeTodo({id:${l.id}})"></button>
             </div>
-            <form onsubmit="state.commands.updateToDoTitle({id:${l.id}}, this.title.value)">
-              <input name="title" type="text" class="edit" onblur="state.commands.cancelEdit({id:${l.id}})" value="${l.title}">
+            <form onsubmit="commands.updateToDoTitle({id:${l.id}}, this.title.value)">
+              <input name="title" type="text" class="edit" onblur="commands.cancelEdit({id:${l.id}})" value="${l.title}">
             </form >
         </li>
         `).join("")}
@@ -45,7 +45,7 @@ function render(state) {
           </ul>
         <form>
         ${completed.length === 0 ? "" : `
-        <button class="clear-completed" onClick="state.commands.removeCompleted()">
+        <button class="clear-completed" onClick="commands.removeCompleted()">
           Clear completed
         </button>`}
       </footer>`

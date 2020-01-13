@@ -5,10 +5,13 @@
   "main": "dist/main.js",
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "webpack --mode=production --default=pm ",
-    "serve": "webpack-dev-server --open --mode=development --default=pm"
+    "build": "webpack --mode=production",
+    "serve": "webpack-dev-server --open --mode=development --default=vanilla"
   },
-  "repository": "git+https://github.com/David-Desmaisons/wtuif.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/David-Desmaisons/wtuif.git"
+  },
   "keywords": [
     "ui",
     "framework",
@@ -46,7 +49,6 @@
     "react-dom": "^16.12.0",
     "react-scripts": "^3.3.0",
     "regenerator-runtime": "^0.13.3",
-    "remotedev": "^0.2.9",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.2",
     "vue-style-loader": "^4.1.2",
@@ -81,6 +83,11 @@
   ],
   "dependencies": {
     "lit-html": "^1.1.2",
+    "mvi.core": "^1.2.0",
+    "mvi.lit-html": "^1.2.0",
+    "mvi.react": "^1.2.0",
+    "mvi.vanilla": "^1.2.0",
+    "mvi.vue": "^1.2.0",
     "todomvc-app-css": "^2.3.0",
     "todomvc-common": "^1.0.5"
   }

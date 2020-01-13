@@ -12,7 +12,10 @@
         />
       </div>
     </header>
-    <section class="main" v-show="state.todos.length">
+    <section
+      class="main"
+      v-show="state.todos.length"
+    >
       <input
         id="toggle-all"
         class="toggle-all"
@@ -32,10 +35,13 @@
               class="toggle"
               type="checkbox"
               :checked="todo.completed"
-              @input="state.commands.updateToDo(todo, $event.target.checked)"
+              @input="commands.updateToDo(todo, $event.target.checked)"
             />
             <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
-            <button class="destroy" @click="removeTodo(todo)"></button>
+            <button
+              class="destroy"
+              @click="removeTodo(todo)"
+            ></button>
           </div>
           <input
             class="edit"
@@ -50,19 +56,24 @@
       </ul>
     </section>
 
-    <footer class="footer" v-show="state.todos.length">
+    <footer
+      class="footer"
+      v-show="state.todos.length"
+    >
       <span class="todo-count">
         <strong v-text="remaining"></strong> item(s) left
       </span>
 
       <ul class="filters">
-        <li v-for="type in ['all', 'active', 'completed']" :key="type">
+        <li
+          v-for="type in ['all', 'active', 'completed']"
+          :key="type"
+        >
           <a
             class="filter"
             :href="`#/${type}`"
             :class="{ selected: state.filter === type }"
-            >{{ type }}</a
-          >
+          >{{ type }}</a>
         </li>
       </ul>
       <button
@@ -94,6 +105,10 @@ export default {
     state: {
       type: Object,
       required: true
+    },
+    commands: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -108,7 +123,7 @@ export default {
     addTodo() {
       const { newTodo } = this;
       this.newTodo = "";
-      this.state.commands.addTodo(newTodo);
+      this.commands.addTodo(newTodo);
     },
     editTodo(todo) {
       this.editName = todo.title;
@@ -118,17 +133,17 @@ export default {
       if (!this.editedTodo) {
         return;
       }
-      this.state.commands.updateToDoTitle(todo, this.editName);
+      this.commands.updateToDoTitle(todo, this.editName);
       this.editedTodo = null;
     },
     cancelEdit(todo) {
       this.editedTodo = null;
     },
     removeTodo(todo) {
-      this.state.commands.removeTodo(todo);
+      this.commands.removeTodo(todo);
     },
     removeCompleted() {
-      this.state.commands.removeCompleted();
+      this.commands.removeCompleted();
     }
   },
   computed: {
@@ -141,7 +156,7 @@ export default {
   },
   watch: {
     allDone(newValue) {
-      this.state.commands.updateToDos(newValue);
+      this.commands.updateToDos(newValue);
     }
   },
   directives: {

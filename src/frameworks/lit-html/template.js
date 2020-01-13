@@ -1,7 +1,7 @@
 import { html, nothing } from "lit-html";
 import { repeat } from "lit-html/directives/repeat.js";
 
-function template({ todos, commands, filter }) {
+function template({ state: { todos, filter }, commands }) {
   const completed = todos.filter(t => t.completed);
   const notCompleted = todos.filter(t => !t.completed);
   const list =
@@ -12,10 +12,10 @@ function template({ todos, commands, filter }) {
       <header class="header">
         <form
           @submit=${e => {
-            commands.addTodo(e.target.todo.value);
-            e.preventDefault();
-            e.target.todo.value = "";
-          }}
+      commands.addTodo(e.target.todo.value);
+      e.preventDefault();
+      e.target.todo.value = "";
+    }}
         >
           <h1>todos</h1>
           <input
@@ -37,13 +37,13 @@ function template({ todos, commands, filter }) {
         <label for="toggle-all">Mark all as complete</label>
         <ul class="todo-list">
           ${repeat(
-            list,
-            l => l.id,
-            l => html`
+      list,
+      l => l.id,
+      l => html`
               <li
                 class="todo${l.completed ? " completed" : ""}${l.editing
-                  ? " editing"
-                  : ""}"
+          ? " editing"
+          : ""}"
               >
                 <div class="view">
                   <input
@@ -60,37 +60,37 @@ function template({ todos, commands, filter }) {
                 </div>
                 <form
                   @submit=${e => {
-                    commands.updateToDoTitle(l, e.target.title.value);
-                    e.preventDefault();
-                  }}
+          commands.updateToDoTitle(l, e.target.title.value);
+          e.preventDefault();
+        }}
                 >
                   <input
                     name="title"
                     type="text"
                     class="edit"
                     @blur=${e => {
-                      commands.cancelEdit(l);
-                      e.target.value = l.title;
-                    }}
+          commands.cancelEdit(l);
+          e.target.value = l.title;
+        }}
                     value="${l.title}"
                   />
                 </form>
               </li>
             `
-          )}
+    )}
         </ul>
       </section>
       ${todos.length === 0
-        ? nothing
-        : html`
+      ? nothing
+      : html`
             <footer class="footer">
               <span class="todo-count"
                 ><strong>${notCompleted.length}</strong> item(s) left</span
               >
               <ul class="filters">
                 ${["all", "active", "completed"].map(
-                  type =>
-                    html`
+        type =>
+          html`
                       <li>
                         <a
                           class="filter ${type === filter ? "selected" : ""}"
@@ -99,11 +99,11 @@ function template({ todos, commands, filter }) {
                         >
                       </li>
                     `
-                )}
+      )}
               </ul>
               ${completed.length === 0
-                ? nothing
-                : html`
+          ? nothing
+          : html`
                     <button
                       class="clear-completed"
                       @click=${() => commands.removeCompleted()}
