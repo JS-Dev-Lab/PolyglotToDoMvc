@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "webpack --mode=production",
+    "build": "webpack --mode=production --default=vanilla",
     "serve": "webpack-dev-server --open --mode=development --default=vanilla"
   },
   "repository": {
