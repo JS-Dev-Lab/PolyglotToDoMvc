@@ -31,5 +31,5 @@ Specify the view implementation:
 npm run serve -- -app=[implementation]
 ```
 
-Where `implementation` is one of: `lit-html`, `react`, `vue` or `vanilla`,
+Where `implementation` is one of: `lit-html`, `react`, `vue` or `vanilla`.
 
