@@ -8,9 +8,9 @@ https://js-dev-lab.github.io/PolyglotToDoMvc/
 
 ## Features
 
-Project based on [Model View Intend](https://github.com/JS-Dev-Lab/PoormanUiFramework) archicture implementaion providing:
+Project based on [Model View Intend](https://github.com/JS-Dev-Lab/PoormanUiFramework) archicture providing:
 
-- A generic implementation framework agnostic of todo mvc application
+- A generic framework agnostic implementation of todo mvc application
 - Bindings for:
     - vanilla implementation
     - Vue.js
